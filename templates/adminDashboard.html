@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <titl"""itle>
+    <link rel="stylesheet" href="{{url_for('static',filename='dist/css/output.css')}}">
+    <style>
+   
+        #edu{
+            margin-left: -160px;
+        }
+        #details{
+            margin-left: -100px;
+        }
+        #last{
+            margin-bottom: 20px;
+        }
+        #time{
+            margin-left: 70%;
+            font-weight: bold;
+            margin-top: -30px;
+        }
+        span{
+            margin-bottom: 10px;
+        }
+        .card {
+            margin-left: 20%;
+            margin-top: 20px;
+            padding: 20px;
+            width: 330px;
+            min-height: 370px;
+            border-radius: 20px;
+            background: #b8e4ef;
+
+            box-shadow: 5px 5px 6px #dadada,
+                         -5px -5px 6px #f6f6f6;
+            transition: 0.4s;
+          }
+          
+          .card:hover {
+            translate: 0 -10px;
+          }
+          
+          .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2e54a7;
+            margin: 15px 0 0 10px;
+          }
+          
+          .card-image {
+            height: fit-content;
+            width: fit-content;
+            background-color: #7fe2e2;
+            border-radius: 15px;
+            box-shadow: inset 8px 8px 10px #c3c3c3,
+                      inset -8px -8px 10px #cfcfcf;
+          }
+          
+          .card-body {
+            margin: 13px 0 0 10px;
+            color: rgb(31, 31, 31);
+            font-size: 15px;
+          }
+          
+          .footer {
+            float: right;
+            margin: 28px 0 0 18px;
+            font-size: 13px;
+            color: #636363;
+          }
+          
+          .by-name {
+            font-weight: 700;
+          }
+          #nav{
+            background-color: rgb(115, 226, 115);
+          }
+          #name{
+            margin-top: -10px;
+            margin-left: 60px;
+          }
+          #puserid{
+            margin-top: -50px;
+            margin-left: 60px;
+          }
+          #head{
+            margin-bottom: 50px;
+          }
+          #image{
+            border-radius: 50%;
+          }
+          #block{
+            margin-left: 3%;
+            display: flex;
+            flex-direction: row;
+            gap: 3%;
+          }
+          #postImg{
+            width: 300px;
+            height: 300px;
+          }
+          #center{
+            width: 40%;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+            height: fit-content;
+            margin-top: 5%;
+            padding-bottom: 20px;
+          }     
+          #left,#right{
+            width: 25%;
+            height: fit-content;
+          }
+          #left{
+            margin-left: 5%;
+            margin-top: 5%;
+            padding: 20px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          }
+          #right{
+            margin-top: 5%;
+            margin-right: 5%;
+            padding: 20px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          }
+          #profile{
+            margin-left: 30%;
+          }
+          #username{
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+          }
+          #userid{
+            margin-top: 10px;
+            margin-left: 40%;
+          }
+          .profile-bio p{
+            text-align: center;
+            margin-top: 10px;
+          }
+          #search{
+            margin-top: 20px;
+          }
+          #comp_type{
+            margin-top: 20px;
+          }
+          #ac{
+            margin-top: 20px;
+            background: green;
+          }
+          #rc{
+            margin-top: 10px;
+            background-color: red;
+          }
+          
+    </style>
+</head>
+<body>
+    <header class=" bg-green-200">
+        <nav class="bg-green-200 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800" id="nav">
+            <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+                <a href="/dashboard" class="flex items-center">
+                   
+                    <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Complaints</span>
+                </a>
+                <div class="flex items-center lg:order-2">
+                    <ul>
+                        <li>
+                            <a href="{{ url_for('profile', username=user[2] ) }}" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Profile</a>
+                        </li>
+                    </ul>
+                    <a href="{{ url_for('logout') }}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Logout</a> 
+                </div>
+               </div>
+            </nav>
+         </nav>
+        
+    </header>
+    
+    <div id="block">
+      <div id="left">
+        <div class="relative">
+           <form action="/filteruser" method="POST">
+            <label>Filter Complaints</label>
+
+            <br></br>
+            <label>Select User Type</label>
+            <select id="user_type" name="user_type" class="appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+              <option >{{usertype}}</option>
+              <option value="all">All</option>
+              <option value="teacher">Teacher</option>
+              <option value="student">Student</option>
+              <option value="technician">Technician</option>
+          </select>
+          <br></br>
+          
+          <label>Select complaint Type</label>
+          <select id="comp_type" name="comp_type" class="appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <option>{{comptype}}</option>
+            <option value="all" >All</option>
+            <option value="electric">Electrical</option>
+             <option value="plumbing">plumbing</option>
+             <option value="maintenance">Maintenance</option>
+             <option value="safety">Safety</option>
+        </select>
+          <button type="submit"id="search" class=" w-full text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Search</button>
+
+           </form>
+            
+        </div>
+          </form>
+           
+       </div>
+    
+        <div id="center">
+    {% if allcomp %}
+
+    {% if usertype=='all' %}
+    {% if comptype=='all'%}
+    {% for comp in allcomp %}
+    {% set  user = fetchUser(comp[1]) %}
+
+    <div class="card">
+      
+        <div class="ml-3 " id="head">
+            <img src="{{ url_for('static', filename='uploads/' + user[9]) }}" class=" rounded" id="image" width="50px" height="50px"  />
+            <span class="text-sm font-semibold antialiased block leading-tight" id="puserid">{{user[2]}}</span>
+            <span class="text-sm font-semibold antialiased block leading-tight" id="name">{{user[4]}}</span>
+            <span class="text-gray-600 text-xs block" id="time">{{comp[4]}}</span>
+          </div>
+        <div class="card-image">
+        {% if comp[2].endswith('.mp4') %}
+          <video controls class="w-full">
+            <source src="{{ url_for('static', filename='uploads/' + comp[2]) }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        {% else %}
+          <img src="{{ url_for('static', filename='uploads/' + comp[2]) }}" class="w-full" alt="Image" id="postImg">
+        {% endif %}
+        </div>
+        <p class="card-title">Complaints Description: </p>
+        <p class="card-body">
+            {{comp[3]}}
+        </p>
+        <p class="card-title">Complaints type: </p>
+        <p class="card-body">
+            {{comp[5]}}
+        </p>
+        <form action="/handle_operation" method="POST">
+          <input type="text" name="huser" class=" hidden" value={{comp[7]}}>
+          <button type="submit" name="operation" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" value="accept">Accept</button>
+          <button type="submit" name="operation" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" value="reject">Reject</button>
+      </form>
+      </div>
+      
+      {% endfor %}
+      {%else%}
+      {% for comp in allcomp %}
+     {% if comp[5] == comptype %}
+    {% set  user = fetchUser(comp[1]) %}
+
+    <div class="card">
+      
+        <div class="ml-3 " id="head">
+            <img src="{{ url_for('static', filename='uploads/' + user[9]) }}" class=" rounded" id="image" width="50px" height="50px"  />
+            <span class="text-sm font-semibold antialiased block leading-tight" id="puserid">{{user[2]}}</span>
+            <span class="text-sm font-semibold antialiased block leading-tight" id="name">{{user[4]}}</span>
+            <span class="text-gray-600 text-xs block" id="time">{{comp[4]}}</span>
+          </div>
+        <div class="card-image">
+        {% if comp[2].endswith('.mp4') %}
+          <video controls class="w-full">
+            <source src="{{ url_for('static', filename='uploads/' + comp[2]) }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        {% else %}
+          <img src="{{ url_for('static', filename='uploads/' + comp[2]) }}" class="w-full" alt="Image" id="postImg">
+        {% endif %}
+        </div>
+        <p class="card-title">Complaints Description: </p>
+        <p class="card-body">
+            {{comp[3]}}
+        </p>
+        <p class="card-title">Complaints type: </p>
+        <p class="card-body">
+            {{comp[5]}}
+        </p>
+        <form action="/handle_operation" method="POST">
+          <input type="text" name="huser" class=" hidden" value={{comp[7]}}>
+          <button type="submit" name="operation" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" value="accept">Accept</button>
+          <button type="submit" name="operation" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" value="reject">Reject</button>
+      </form>
+      </div>
+      
+      {%endif%}
+
+      {% endfor %}
+      {%endif%}
+
+    {% else %}
+
+    {% for comp in allcomp %}
+    {% set  user = fetchUser(comp[1]) %}
+    {% if user[4] == usertype %}
+    {% if comptype=='all'%}
+
+    <div class="card">
+      
+        <div class="ml-3 " id="head">
+            <img src="{{ url_for('static', filename='uploads/' + user[9]) }}" class=" rounded" id="image" width="50px" height="50px"  />
+            <span class="text-sm font-semibold antialiased block leading-tight" id="puserid">{{user[2]}}</span>
+            <span class="text-sm font-semibold antialiased block leading-tight" id="name">{{user[4]}}</span>
+            <span class="text-gray-600 text-xs block" id="time">{{comp[4]}}</span>
+          </div>
+        <div class="card-image">
+            {% if comp[2].endswith('.mp4') %}
+          <video controls class="w-full">
+            <source src="{{ url_for('static', filename='uploads/' + comp[2]) }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        {% else %}
+          <img src="{{ url_for('static', filename='uploads/' + comp[2]) }}" class="w-full" alt="Image" id="postImg">
+        {% endif %}
+        </div>
+        <p class="card-title">Complaints Description: </p>
+        <p class="card-body">
+            {{comp[3]}}
+        </p>
+        <p class="card-title">Complaints type: </p>
+        <p class="card-body">
+            {{comp[5]}}
+        </p>
+        <form action="/handle_operation" method="POST">
+          <input type="text" name="huser" class=" hidden" value={{comp[7]}}>
+          <button type="submit" name="operation" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" value="accept">Accept</button>
+          <button type="submit" name="operation" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" value="reject">Reject</button>
+      </form>
+      </div>
+      {% endif %}
+      {% endif %}
+
+      {% endfor %}
+      
+      {% endif %}
+      {% for comp in allcomp %}
+      {% set  user = fetchUser(comp[1]) %}
+      {% if user[4] == usertype %}
+      {% if comp[5] == comptype %}
+  
+      <div class="card">
+        
+          <div class="ml-3 " id="head">
+              <img src="{{ url_for('static', filename='uploads/' + user[9]) }}" class=" rounded" id="image" width="50px" height="50px"  />
+              <span class="text-sm font-semibold antialiased block leading-tight" id="puserid">{{user[2]}}</span>
+              <span class="text-sm font-semibold antialiased block leading-tight" id="name">{{user[4]}}</span>
+              <span class="text-gray-600 text-xs block" id="time">{{comp[4]}}</span>
+            </div>
+          <div class="card-image">
+              {% if comp[2].endswith('.mp4') %}
+            <video controls class="w-full">
+              <source src="{{ url_for('static', filename='uploads/' + comp[2]) }}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          {% else %}
+            <img src="{{ url_for('static', filename='uploads/' + comp[2]) }}" class="w-full" alt="Image" id="postImg">
+          {% endif %}
+          </div>
+          <p class="card-title">Complaints Description: </p>
+          <p class="card-body">
+              {{comp[3]}}
+          </p>
+          <p class="card-title">Complaints type: </p>
+        <p class="card-body">
+            {{comp[5]}}
+        </p>
+        <form action="/handle_operation" method="POST">
+          <input type="text" name="huser" class=" hidden" value={{comp[7]}}>
+          <button type="submit" name="operation" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" value="accept">Accept</button>
+          <button type="submit" name="operation"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" value="reject">Reject</button>
+      </form>
+        </div>
+        {% endif %}
+        {% endif %}
+  
+        {% endfor %}
+        
+      {% else %}
+      <section class="bg-white dark:bg-gray-900">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+            <div class="mx-auto max-w-screen-sm text-center">
+                <h1 class="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl text-primary-600 dark:text-primary-500">Sorry</h1>
+                <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl dark:text-white">No Complaints By You</p>
+                <p class="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">Click the Post Compilant Button to Post any Compilant</p>
+            </div>   
+        </div>
+    </section>
+      {% endif %}
+    
+    
+    
+        
+    
+    </div>
+        <div id="right">
+                <form action="/finduser" method="POST">
+                    <input type="text"  name="finduserid" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={{session['finduser']}}>
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Find</button>
+                </form>
+                {% set  finduser = fetchUser(session['finduser']) %}
+                <div>
+                  <h3><strong>Name:</strong> {{finduser[1]}} </h3>
+                  <h4><strong>Userid:</strong> {{finduser[2]}} </h4>
+                  <h4><strong>Department:</strong> {{finduser[3]}} </h4>
+                  <h4><strong>Designation :</strong> {{finduser[4]}} </h4>
+                  {% if finduser[5] is none  or finduser[5]=="" %}
+                    <h4><strong>Lab No :</strong> {{finduser[6]}} </h4>
+                  {%else%}
+                  <h4><strong>Room No :</strong> {{finduser[5]}} </h4>
+                  {% endif %}
+
+                  <!-- <h4>Designation : {{finduser[4]}} </h4> -->
+                </div>
+                <a href="/reject">
+                <button type="submit" id="rc" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Rejected Complaintes</button>
+                </a>
+                <a href="/accept">
+                <button type="submit" id="ac" class="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Accepted Complaintes</button>
+                </a>
+
+                <form action="/fetchdatecomp" method="POST">
+                  <h2 style="margin-top: 20px;">Select Date: </h2>
+                  <a href="{{ url_for('analysis', accept=acceptCount, reject=rejectCount, comp=complaintsCount) }}">
+                  <input type="date" name="predate">
+                  <button type="submit" id="ac" class="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                  </a>
+                </form>
+        </div>
+        
+  </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    
+
+</body>
+</html>

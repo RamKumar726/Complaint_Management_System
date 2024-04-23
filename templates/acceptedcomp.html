@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accepted Complaints</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='dist/css/output.css')}}">
+    <style>
+   
+        #edu{
+            margin-left: -160px;
+        }
+        #details{
+            margin-left: -100px;
+        }
+        #last{
+            margin-bottom: 20px;
+        }
+        #time{
+            margin-left: 70%;
+            font-weight: bold;
+            margin-top: -30px;
+        }
+        span{
+            margin-bottom: 10px;
+        }
+        .card {
+            margin-left: 40%;
+            margin-top: 20px;
+            padding: 20px;
+            width: 330px;
+            min-height: 370px;
+            border-radius: 20px;
+            background: #b8e4ef;
+
+            box-shadow: 5px 5px 6px #dadada,
+                         -5px -5px 6px #f6f6f6;
+            transition: 0.4s;
+          }
+          
+          .card:hover {
+            translate: 0 -10px;
+          }
+          
+          .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2e54a7;
+            margin: 15px 0 0 10px;
+          }
+          
+          .card-image {
+            height: fit-content;
+            width: fit-content;
+            background-color: #7fe2e2;
+            border-radius: 15px;
+            box-shadow: inset 8px 8px 10px #c3c3c3,
+                      inset -8px -8px 10px #cfcfcf;
+          }
+          
+          .card-body {
+            margin: 13px 0 0 10px;
+            color: rgb(31, 31, 31);
+            font-size: 15px;
+          }
+          
+          .footer {
+            float: right;
+            margin: 28px 0 0 18px;
+            font-size: 13px;
+            color: #636363;
+          }
+          
+          .by-name {
+            font-weight: 700;
+          }
+          #nav{
+            background-color: rgb(115, 226, 115);
+          }
+          #name{
+            margin-top: -10px;
+            margin-left: 60px;
+          }
+          #puserid{
+            margin-top: -50px;
+            margin-left: 60px;
+          }
+          #head{
+            margin-bottom: 50px;
+          }
+          #image{
+            border-radius: 50%;
+          }
+          #block{
+            margin-left: 3%;
+            display: flex;
+            flex-direction: row;
+            gap: 3%;
+          }
+          #postImg{
+            width: 300px;
+            height: 300px;
+          }
+          #center{
+            width: 40%;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+            height: fit-content;
+            margin-top: 5%;
+            padding-bottom: 20px;
+          }     
+          #left,#right{
+            width: 25%;
+            height: fit-content;
+          }
+          #left{
+            margin-left: 5%;
+            margin-top: 5%;
+            padding: 20px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          }
+          #right{
+            margin-top: 5%;
+            margin-right: 5%;
+            padding: 20px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          }
+          #profile{
+            margin-left: 30%;
+          }
+          #username{
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+          }
+          #userid{
+            margin-top: 10px;
+            margin-left: 40%;
+          }
+          .profile-bio p{
+            text-align: center;
+            margin-top: 10px;
+          }
+          #search{
+            margin-top: 20px;
+          }
+          #comp_type{
+            margin-top: 20px;
+          }
+          #ac{
+            margin-top: 20px;
+            background: green;
+          }
+          #rc{
+            margin-top: 10px;
+            background-color: red;
+          }
+          #heading{
+            color: green;
+            font-size: large;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 50px;
+          }
+          
+    </style>
+</head>
+<body>
+
+    
+
+
+
+<h1 id="heading">Accepted Complaints: </h1>
+{% for comp in acceptcomp %}
+{% set  user = fetchUser(comp[1]) %}
+
+<div class="card">
+  
+    <div class="ml-3 " id="head">
+        <img src="{{ url_for('static', filename='uploads/' + user[9]) }}" class=" rounded" id="image" width="50px" height="50px"  />
+        <span class="text-sm font-semibold antialiased block leading-tight" id="puserid">{{user[2]}}</span>
+        <span class="text-sm font-semibold antialiased block leading-tight" id="name">{{user[4]}}</span>
+        <span class="text-gray-600 text-xs block" id="time">{{comp[4]}}</span>
+      </div>
+    <div class="card-image">
+    {% if comp[2].endswith('.mp4') %}
+      <video controls class="w-full">
+        <source src="{{ url_for('static', filename='uploads/' + comp[2]) }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    {% else %}
+      <img src="{{ url_for('static', filename='uploads/' + comp[2]) }}" class="w-full" alt="Image" id="postImg">
+    {% endif %}
+    </div>
+    <p class="card-title">Complaints Description: </p>
+    <p class="card-body">
+        {{comp[3]}}
+    </p>
+    <p class="card-title">Complaints type: </p>
+    <p class="card-body">
+        {{comp[5]}}
+    </p>
+    
+  </div>
+  
+  {% endfor %}
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
+</body>
+</html>
